@@ -19,6 +19,7 @@ class ImagesGridActivity : BaseActivity() {
 
 @Composable
 fun ImagesGridPage(viewModel: ImagesGridViewModel = viewModel()) {
+    println(viewModel.hashCode())
 }
 
 @Preview(showBackground = true)
