@@ -2,6 +2,7 @@ package com.obvious.nasagalleryapp.presentation.images_grid
 
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.obvious.nasagalleryapp.domain.base.BaseActivity
@@ -19,7 +20,8 @@ class ImagesGridActivity : BaseActivity() {
 
 @Composable
 fun ImagesGridPage(viewModel: ImagesGridViewModel = viewModel()) {
-    println(viewModel.hashCode())
+    val uiState = viewModel.uiState.collectAsState()
+
 }
 
 @Preview(showBackground = true)

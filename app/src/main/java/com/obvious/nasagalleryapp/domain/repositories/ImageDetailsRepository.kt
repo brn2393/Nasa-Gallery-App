@@ -5,5 +5,5 @@ import com.obvious.nasagalleryapp.domain.models.NasaMetadata
 
 interface ImageDetailsRepository : BaseRepository {
 
-    suspend fun getImageMetadata(): NasaMetadata
+    suspend fun getImageMetadata(url: String): NasaMetadata?
 }
