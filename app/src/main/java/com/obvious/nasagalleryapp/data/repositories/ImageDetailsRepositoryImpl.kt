@@ -20,7 +20,9 @@ class ImageDetailsRepositoryImpl @Inject constructor(
 
     override suspend fun getImagesWithMetadata(): List<FullNasaImage> {
         return withContext(defaultDispatcher) {
-            localDataSource.getNasaImageList().map { it.toFullNasaImage(dateFormatter) }
+            localDataSource.getNasaImageList()
+                .map { it.toFullNasaImage(dateFormatter) }
+                .sortedByDescending { it.date }
         }
     }
 }

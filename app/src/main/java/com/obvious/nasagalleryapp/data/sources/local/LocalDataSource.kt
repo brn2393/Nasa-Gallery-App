@@ -27,8 +27,4 @@ class LocalDataSource @Inject constructor(
     fun getNasaImageList(): List<NasaImageData> {
         return localImageList
     }
-
-    fun getNasaImageMetadata(url: String): NasaImageData? {
-        return localImageList.find { it.url == url }
-    }
 }
