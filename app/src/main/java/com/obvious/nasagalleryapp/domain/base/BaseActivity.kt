@@ -10,6 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import com.obvious.nasagalleryapp.ui.theme.NASAGalleryAppTheme
 
 abstract class BaseActivity : ComponentActivity() {
@@ -18,6 +19,7 @@ abstract class BaseActivity : ComponentActivity() {
     protected abstract fun BuildContent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContent {
             NASAGalleryAppTheme {
@@ -30,10 +32,6 @@ abstract class BaseActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun showToast(context: Context, text: String) {
-    Toast.makeText(context, text, Toast.LENGTH_LONG).show()
 }
 
 fun showToast(context: Context, textRes: Int) {

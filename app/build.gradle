@@ -68,6 +68,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_runtime_version"
 
+    implementation "com.google.accompanist:accompanist-pager:$pager_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$systemuicontroller_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
