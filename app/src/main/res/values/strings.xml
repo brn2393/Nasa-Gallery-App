@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NASA Gallery App</string>
+    <string name="error_operation_failed">Operation failed!</string>
 </resources>

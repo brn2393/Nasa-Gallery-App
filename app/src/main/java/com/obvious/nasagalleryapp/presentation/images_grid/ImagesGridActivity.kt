@@ -1,5 +1,6 @@
 package com.obvious.nasagalleryapp.presentation.images_grid
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -21,6 +22,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.obvious.nasagalleryapp.R
+import com.obvious.nasagalleryapp.core.constants.AppConstants
 import com.obvious.nasagalleryapp.domain.base.BaseActivity
 import com.obvious.nasagalleryapp.domain.base.showToast
 import com.obvious.nasagalleryapp.domain.models.NasaImage
@@ -28,8 +31,11 @@ import com.obvious.nasagalleryapp.ui.composables.Loader
 import com.obvious.nasagalleryapp.ui.theme.NASAGalleryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val TAG = "ImagesGridActivity"
+
 @AndroidEntryPoint
 class ImagesGridActivity : BaseActivity() {
+
 
     @Composable
     override fun BuildContent() = ImagesGridPage()
@@ -41,13 +47,13 @@ fun ImagesGridPage(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     val context = LocalContext.current
+    val uiState = viewModel.uiState.collectAsState()
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                viewModel.fetchNasaImages()
-            } else if (event == Lifecycle.Event.ON_STOP) {
-
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> viewModel.fetchNasaImages()
+                else -> Unit
             }
         }
 
@@ -58,20 +64,21 @@ fun ImagesGridPage(
         }
     }
 
-    val uiState = viewModel.uiState.collectAsState()
-
     Column(modifier = Modifier.fillMaxSize()) {
         when (val state = uiState.value) {
             ImagesGridUiState.Loading -> Loader()
             is ImagesGridUiState.Success -> ImageList(images = state.images)
-            is ImagesGridUiState.Error -> showToast(context, state.throwable.message ?: "")
+            is ImagesGridUiState.Error -> {
+                Log.e(TAG, "ImagesGridPage: ", state.throwable)
+                showToast(context, R.string.error_operation_failed)
+            }
         }
     }
 }
 
 @Composable
 fun ImageList(images: List<NasaImage>) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(AppConstants.DEFAULT_GRID_COLUMNS)) {
         items(images) { image ->
             ImageRow(image)
         }
@@ -83,7 +90,7 @@ fun ImageRow(image: NasaImage) {
     AsyncImage(
         modifier = Modifier
             .fillMaxSize()
-            .height(200.dp),
+            .height(AppConstants.DEFAULT_GRID_HEIGHT.dp),
         model = image.url,
         contentDescription = image.title,
         contentScale = ContentScale.Crop
