@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.obvious.nasagalleryapp.domain.base.BaseViewModel
 import com.obvious.nasagalleryapp.domain.usecases.GetImagesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class ImagesGridViewModel @Inject constructor(
 
     fun fetchNasaImages() {
         viewModelScope.launch {
+            delay(2000)
             try {
                 getImagesUseCase().also {
                     _uiState.value = ImagesGridUiState.Success(it)
