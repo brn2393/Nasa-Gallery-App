@@ -20,7 +20,6 @@ class ImagesGridViewModel @Inject constructor(
 
     fun fetchNasaImages() {
         viewModelScope.launch {
-            delay(2000)
             try {
                 getImagesUseCase().also {
                     _uiState.value = ImagesGridUiState.Success(it)

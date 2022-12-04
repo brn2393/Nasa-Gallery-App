@@ -2,21 +2,24 @@ package com.obvious.nasagalleryapp.presentation.images_grid
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.obvious.nasagalleryapp.domain.base.BaseActivity
 import com.obvious.nasagalleryapp.domain.models.NasaImage
 import com.obvious.nasagalleryapp.ui.composables.Loader
@@ -75,7 +78,14 @@ fun ImageList(images: List<NasaImage>) {
 
 @Composable
 fun ImageRow(image: NasaImage) {
-    Text(text = "test ${image.url}")
+    AsyncImage(
+        modifier = Modifier
+            .fillMaxSize()
+            .height(200.dp),
+        model = image.url,
+        contentDescription = image.title,
+        contentScale = ContentScale.Crop
+    )
 }
 
 @Preview(showBackground = true)
