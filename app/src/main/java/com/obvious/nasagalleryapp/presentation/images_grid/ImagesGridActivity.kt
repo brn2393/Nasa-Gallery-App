@@ -12,6 +12,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.obvious.nasagalleryapp.domain.base.BaseActivity
+import com.obvious.nasagalleryapp.domain.base.showToast
 import com.obvious.nasagalleryapp.domain.models.NasaImage
 import com.obvious.nasagalleryapp.ui.composables.Loader
 import com.obvious.nasagalleryapp.ui.theme.NASAGalleryAppTheme
@@ -38,6 +40,8 @@ fun ImagesGridPage(
     viewModel: ImagesGridViewModel = viewModel(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
+    val context = LocalContext.current
+
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -60,16 +64,14 @@ fun ImagesGridPage(
         when (val state = uiState.value) {
             ImagesGridUiState.Loading -> Loader()
             is ImagesGridUiState.Success -> ImageList(images = state.images)
-            is ImagesGridUiState.Error -> Unit
+            is ImagesGridUiState.Error -> showToast(context, state.throwable.message ?: "")
         }
     }
 }
 
 @Composable
 fun ImageList(images: List<NasaImage>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2)
-    ) {
+    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(images) { image ->
             ImageRow(image)
         }
@@ -88,7 +90,7 @@ fun ImageRow(image: NasaImage) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
     NASAGalleryAppTheme {

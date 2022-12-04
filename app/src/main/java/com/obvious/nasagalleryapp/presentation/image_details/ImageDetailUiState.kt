@@ -4,6 +4,6 @@ import com.obvious.nasagalleryapp.domain.models.NasaMetadata
 
 sealed class ImageDetailUiState {
     object Loading : ImageDetailUiState()
-    class Success(val metadata: NasaMetadata) : ImageDetailUiState()
-    class Error(val throwable: Throwable) : ImageDetailUiState()
+    data class Success(val metadata: NasaMetadata) : ImageDetailUiState()
+    data class Error(val throwable: Throwable) : ImageDetailUiState()
 }

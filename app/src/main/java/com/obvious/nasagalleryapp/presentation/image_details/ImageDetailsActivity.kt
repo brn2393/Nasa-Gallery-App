@@ -24,7 +24,7 @@ fun ImageDetailsPage(viewModel: ImageDetailsViewModel = viewModel()) {
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
     NASAGalleryAppTheme {

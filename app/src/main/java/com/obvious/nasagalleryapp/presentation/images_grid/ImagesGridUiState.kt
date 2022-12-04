@@ -4,6 +4,6 @@ import com.obvious.nasagalleryapp.domain.models.NasaImage
 
 sealed class ImagesGridUiState {
     object Loading : ImagesGridUiState()
-    class Success(val images: List<NasaImage>) : ImagesGridUiState()
-    class Error(val throwable: Throwable) : ImagesGridUiState()
+    data class Success(val images: List<NasaImage>) : ImagesGridUiState()
+    data class Error(val throwable: Throwable) : ImagesGridUiState()
 }
