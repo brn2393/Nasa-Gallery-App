@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -75,7 +75,7 @@ fun ImageMetadata(
     )
     Text(
         text = image.title.toString(),
-        style = MaterialTheme.typography.h6,
+        style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(
             start = AppConstants.DEFAULT_PADDING.dp,
             top = AppConstants.DEFAULT_PADDING.dp,
@@ -95,18 +95,18 @@ fun ImageMetadata(
             Text(
                 text = stringResource(
                     id = R.string.lbl_copyright, image.copyright ?: "Unknown"
-                ), style = MaterialTheme.typography.body2, modifier = Modifier.weight(1f)
+                ), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f)
             )
             Text(
                 text = formattedDate ?: "",
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.End,
             )
         }
         SelectionContainer {
             Text(
-                text = image.explanation.toString(), style = MaterialTheme.typography.body1
+                text = image.explanation.toString(), style = MaterialTheme.typography.bodyLarge
             )
         }
         Spacer(Modifier.height((containerHeight - 320.dp).coerceAtLeast(0.dp)))
@@ -119,10 +119,10 @@ fun FullSizeImage(
 ) {
     AsyncImage(
         modifier = Modifier
-            .heightIn(max = containerHeight / 3)
+            .heightIn(max = containerHeight / 2)
             .fillMaxWidth(),
         model = imageUrl,
         contentDescription = imageUrl,
-        contentScale = ContentScale.Crop
+        contentScale = ContentScale.FillWidth
     )
 }

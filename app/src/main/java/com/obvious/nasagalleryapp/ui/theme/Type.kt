@@ -1,6 +1,6 @@
 package com.obvious.nasagalleryapp.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -19,92 +19,105 @@ val montserratFamily = FontFamily(
 )
 
 val Typography = Typography(
-    h1 = TextStyle(
+    displayLarge = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 57.sp,
         lineHeight = 64.sp,
         letterSpacing = 0.sp,
     ),
-    h2 = TextStyle(
+    displayMedium = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 45.sp,
         lineHeight = 52.sp,
         letterSpacing = 0.sp,
     ),
-    h3 = TextStyle(
+    displaySmall = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp,
         lineHeight = 44.sp,
         letterSpacing = 0.sp,
     ),
-    h4 = TextStyle(
+    headlineLarge = TextStyle(
+        fontFamily = montserratFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 32.sp,
+        lineHeight = 40.sp,
+        letterSpacing = 0.sp,
+    ),
+    headlineMedium = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
         lineHeight = 36.sp,
         letterSpacing = 0.sp,
     ),
-    h5 = TextStyle(
+    headlineSmall = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         lineHeight = 32.sp,
         letterSpacing = 0.sp,
     ),
-    h6 = TextStyle(
+    titleLarge = TextStyle(
         fontFamily = montserratFamily,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Normal,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp,
     ),
-    subtitle1 = TextStyle(
+    titleMedium = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp,
     ),
-    subtitle2 = TextStyle(
+    titleSmall = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
     ),
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = BlueGrey500
     ),
-    body2 = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = montserratFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.25.sp,
     ),
-    caption = TextStyle(
+    bodySmall = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.4.sp,
     ),
-    button = TextStyle(
+    labelLarge = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
     ),
-    overline = TextStyle(
+    labelMedium = TextStyle(
+        fontFamily = montserratFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    labelSmall = TextStyle(
         fontFamily = montserratFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
