@@ -21,7 +21,11 @@ class ImageDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getImagesWithMetadataUseCase().also {
-                    _uiState.value = ImageDetailUiState.Success(it)
+                    _uiState.value = if (it.isEmpty()) {
+                        ImageDetailUiState.Empty
+                    } else {
+                        ImageDetailUiState.Success(it)
+                    }
                 }
             } catch (error: Exception) {
                 _uiState.value = ImageDetailUiState.Error(error)

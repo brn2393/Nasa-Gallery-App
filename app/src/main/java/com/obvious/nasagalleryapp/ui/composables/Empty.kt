@@ -11,8 +11,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.obvious.nasagalleryapp.R
 
 @Composable
-fun NotFound() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.not_found))
+fun Empty() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty))
     LottieAnimation(
         composition = composition,
         iterations = LottieConstants.IterateForever,

@@ -1,8 +1,6 @@
 package com.obvious.nasagalleryapp.domain.base
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,8 +30,4 @@ abstract class BaseActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun showToast(context: Context, textRes: Int) {
-    Toast.makeText(context, textRes, Toast.LENGTH_LONG).show()
 }
