@@ -3,18 +3,20 @@ package com.obvious.nasagalleryapp.presentation.image_details
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -23,7 +25,9 @@ import coil.compose.AsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.obvious.nasagalleryapp.R
 import com.obvious.nasagalleryapp.core.constants.AppConstants
+import com.obvious.nasagalleryapp.core.utils.DateUtils
 import com.obvious.nasagalleryapp.domain.base.BaseActivity
 import com.obvious.nasagalleryapp.domain.models.FullNasaImage
 import com.obvious.nasagalleryapp.ui.composables.Loader
@@ -52,9 +56,8 @@ fun ImageDetailsPage(
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_RESUME -> viewModel.fetchImageMetadata()
-                else -> Unit
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.fetchImageMetadata()
             }
         }
 
@@ -82,12 +85,10 @@ fun ImageDetailsPage(
 fun LayoutParent(images: List<FullNasaImage>, selectedUrl: String?) {
     val pagerState = rememberPagerState()
     val scrollState = rememberScrollState()
-    val pageIndex = remember { images.indexOfFirst { it.url == selectedUrl } }
+    val pageIndex = images.indexOfFirst { it.url == selectedUrl }
 
     HorizontalPager(
-        count = images.size,
-        state = pagerState,
-        modifier = Modifier.fillMaxHeight()
+        count = images.size, state = pagerState, modifier = Modifier.fillMaxHeight()
     ) { page ->
         val image = images.getOrNull(page)
         if (image == null) {
@@ -102,8 +103,7 @@ fun LayoutParent(images: List<FullNasaImage>, selectedUrl: String?) {
                                 .verticalScroll(scrollState),
                         ) {
                             ImageMetadata(
-                                image,
-                                this@BoxWithConstraints.maxHeight
+                                image, this@BoxWithConstraints.maxHeight
                             )
                         }
                     }
@@ -113,39 +113,64 @@ fun LayoutParent(images: List<FullNasaImage>, selectedUrl: String?) {
     }
 
     LaunchedEffect(pagerState) {
-        pagerState.scrollToPage(page = pageIndex)
+        if (pagerState.pageCount != 0) {
+            pagerState.scrollToPage(page = pageIndex)
+        }
     }
 }
 
 @Composable
 fun ImageMetadata(
-    image: FullNasaImage,
-    containerHeight: Dp
+    image: FullNasaImage, containerHeight: Dp
 ) {
+    val formattedDate = DateUtils.formatLocalDate(image.date)
+
     FullSizeImage(
-        imageUrl = image.url.toString(),
-        containerHeight = containerHeight
+        imageUrl = image.url.toString(), containerHeight = containerHeight
     )
     Text(
         text = image.title.toString(),
-        textAlign = TextAlign.Center,
-        fontSize = 24.sp,
-        modifier = Modifier.fillMaxWidth()
+        style = MaterialTheme.typography.h6,
+        modifier = Modifier.padding(
+            start = AppConstants.DEFAULT_PADDING.dp,
+            top = AppConstants.DEFAULT_PADDING.dp,
+            end = AppConstants.DEFAULT_PADDING.dp,
+            bottom = 0.dp,
+        )
     )
-
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(AppConstants.DEFAULT_PADDING.dp)
     ) {
-        Text(text = image.explanation.toString())
-
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = AppConstants.DEFAULT_PADDING.dp)
+        ) {
+            Text(
+                text = stringResource(
+                    id = R.string.lbl_copyright, image.copyright ?: "Unknown"
+                ), style = MaterialTheme.typography.body2, modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = formattedDate ?: "",
+                style = MaterialTheme.typography.body2,
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.End,
+            )
+        }
+        SelectionContainer {
+            Text(
+                text = image.explanation.toString(), style = MaterialTheme.typography.body1
+            )
+        }
         Spacer(Modifier.height((containerHeight - 320.dp).coerceAtLeast(0.dp)))
     }
 }
 
 @Composable
 fun FullSizeImage(
-    imageUrl: String,
-    containerHeight: Dp
+    imageUrl: String, containerHeight: Dp
 ) {
     AsyncImage(
         modifier = Modifier

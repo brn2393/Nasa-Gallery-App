@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NASA Gallery App</string>
     <string name="error_operation_failed">Operation failed!</string>
+    <string name="lbl_copyright">\u00A9 %1$s</string>
 </resources>
