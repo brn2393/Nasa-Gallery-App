@@ -59,8 +59,10 @@ android {
 }
 
 dependencies {
+    // enabling desugar for java 8 APIs
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_version"
 
+    // core android dependencies
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
@@ -70,22 +72,28 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_runtime_version"
 
+    // google dependencies
     implementation "com.google.accompanist:accompanist-pager:$pager_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$systemuicontroller_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+    // serializing & deserializing
     implementation "com.squareup.moshi:moshi:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
+    // lottie animations
     implementation "com.airbnb.android:lottie-compose:$lottie_version"
 
+    // image loading via network
     implementation "io.coil-kt:coil-compose:$coil_version"
 
+    // test dependencies
     testImplementation "junit:junit:$junit_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
 
+    // default debug dependencies
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }

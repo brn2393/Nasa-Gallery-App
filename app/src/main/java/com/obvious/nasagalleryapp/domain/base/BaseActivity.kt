@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.WindowCompat
@@ -36,7 +37,10 @@ abstract class BaseActivity : ComponentActivity() {
                         topBar = {
                             CenterAlignedTopAppBar(
                                 title = { Text(text = stringResource(id = R.string.app_name)) },
-                                scrollBehavior = scrollBehavior
+                                scrollBehavior = scrollBehavior,
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.White
+                                )
                             )
                         },
                     ) {

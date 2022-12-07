@@ -60,7 +60,9 @@ fun ImageDetailsPage(
         when (val state = uiState.value) {
             ImageDetailUiState.Loading -> Loader()
             ImageDetailUiState.Empty -> Empty()
-            is ImageDetailUiState.Success -> LayoutParent(state.fullImages, selectedUrl)
+            is ImageDetailUiState.Success -> {
+                LayoutParent(state.fullImages, selectedUrl)
+            }
             is ImageDetailUiState.Error -> {
                 Log.e(TAG, "ImageDetailsPage: ", state.throwable)
                 NotFound()
