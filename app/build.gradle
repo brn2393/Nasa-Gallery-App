@@ -47,6 +47,8 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += '/META-INF/LICENSE.md'
+            excludes += '/META-INF/LICENSE-notice.md'
         }
     }
     kapt {
@@ -82,10 +84,7 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "io.mockk:mockk:$mockk_version"
-
-    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
 
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
