@@ -33,7 +33,9 @@ fun LayoutParent(images: List<FullNasaImage>, selectedUrl: String?) {
     val pageIndex = images.indexOfFirst { it.url == selectedUrl }
 
     HorizontalPager(
-        count = images.size, state = pagerState, modifier = Modifier.fillMaxHeight()
+        count = images.size,
+        state = pagerState,
+        modifier = Modifier.fillMaxHeight()
     ) { page ->
         val image = images.getOrNull(page)
         if (image == null) {
@@ -65,13 +67,11 @@ fun LayoutParent(images: List<FullNasaImage>, selectedUrl: String?) {
 }
 
 @Composable
-fun ImageMetadata(
-    image: FullNasaImage, containerHeight: Dp
-) {
-    val formattedDate = DateUtils.formatLocalDate(image.date)
+fun ImageMetadata(image: FullNasaImage, containerHeight: Dp) {
 
     FullSizeImage(
-        imageUrl = image.url.toString(), containerHeight = containerHeight
+        imageUrl = image.url.toString(),
+        containerHeight = containerHeight
     )
     Text(
         text = image.title.toString(),
@@ -92,11 +92,13 @@ fun ImageMetadata(
                 .fillMaxWidth()
                 .padding(bottom = AppConstants.DEFAULT_PADDING.dp)
         ) {
+            val copyrightValue = image.copyright ?: stringResource(R.string.lbl_unknown)
             Text(
-                text = stringResource(
-                    id = R.string.lbl_copyright, image.copyright ?: "Unknown"
-                ), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f)
+                text = stringResource(id = R.string.lbl_copyright, copyrightValue),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.weight(1f)
             )
+            val formattedDate = DateUtils.formatLocalDate(image.date)
             Text(
                 text = formattedDate ?: "",
                 style = MaterialTheme.typography.bodyMedium,
@@ -106,7 +108,8 @@ fun ImageMetadata(
         }
         SelectionContainer {
             Text(
-                text = image.explanation.toString(), style = MaterialTheme.typography.bodyLarge
+                text = image.explanation.toString(),
+                style = MaterialTheme.typography.bodyLarge
             )
         }
         Spacer(Modifier.height((containerHeight - 320.dp).coerceAtLeast(0.dp)))
@@ -114,9 +117,7 @@ fun ImageMetadata(
 }
 
 @Composable
-fun FullSizeImage(
-    imageUrl: String, containerHeight: Dp
-) {
+fun FullSizeImage(imageUrl: String, containerHeight: Dp) {
     AsyncImage(
         modifier = Modifier
             .heightIn(max = containerHeight / 2)

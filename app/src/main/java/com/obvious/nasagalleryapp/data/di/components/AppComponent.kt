@@ -2,8 +2,7 @@ package com.obvious.nasagalleryapp.data.di.components
 
 import com.obvious.nasagalleryapp.data.di.modules.AppModule
 import com.obvious.nasagalleryapp.data.di.modules.DispatcherModule
-import com.obvious.nasagalleryapp.data.di.modules.ImageDetailsModule
-import com.obvious.nasagalleryapp.data.di.modules.ImagesListModule
+import com.obvious.nasagalleryapp.data.di.modules.ImagesModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,8 +11,7 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         DispatcherModule::class,
-        ImagesListModule::class,
-        ImageDetailsModule::class,
+        ImagesModule::class,
     ]
 )
 internal interface AppComponent 
